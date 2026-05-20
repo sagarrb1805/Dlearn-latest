@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Activity</title>
+  <style>
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .wrong {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- <h1>Activity: {{ activity_details[0][1] }}</h1> -->
+   <h1>Choose your options</h1>
+
+  <form id="quizForm">
+    {% for activity in activity_details %}
+      <div class="question-block" data-correct="{{ activity[7] }}">
+        <h4>Q{{ loop.index }}: {{ activity[2] }}</h4>
+
+        <label><input type="radio" name="q{{ loop.index0 }}" value="{{ activity[3] }}"> a: {{ activity[3] }}</label><br>
+        <label><input type="radio" name="q{{ loop.index0 }}" value="{{ activity[4] }}"> b: {{ activity[4] }}</label><br>
+        <label><input type="radio" name="q{{ loop.index0 }}" value="{{ activity[5] }}"> c: {{ activity[5] }}</label><br>
+        <label><input type="radio" name="q{{ loop.index0 }}" value="{{ activity[6] }}"> d: {{ activity[6] }}</label><br>
+
+        <p class="feedback" id="feedback{{ loop.index0 }}"></p>
+        <hr>
+      </div>
+    {% endfor %}
+
+    <button type="button" onclick="submitQuiz()">Submit</button>
+    <h3 id="score"></h3>
+  </form>
+
+  <div>
+    <button onclick="goBack()" >Go back</button>
+    <!-- <a class="btn-primary"></a> -->
+  </div>
+
+ <script>
+    function sendInteractionData(timeSpent, clicks) {
+            const videoId = '{{activity_details[0][1]}}';
+            fetch('/record_interaction', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ video_id: videoId, time_spent: timeSpent, clicks: clicks })
+            });
+        }
+    function goBack() {
+    window.history.back();
+    
+  }
+  function submitQuiz() {
+    sendInteractionData(10000, 1)
+    let score = 0;
+    const questions = document.querySelectorAll('.question-block');
+
+    questions.forEach((question, idx) => {
+      const correctAnswer = question.getAttribute('data-correct')?.trim().toLowerCase();
+      const selected = question.querySelector(`input[name="q${idx}"]:checked`);
+      const feedback = document.getElementById(`feedback${idx}`);
+
+      if (!selected) {
+        feedback.textContent = "No option selected!";
+        feedback.className = "wrong";
+        return;
+      }
+
+      const selectedValue = selected.value.trim().toLowerCase();
+
+      if (selectedValue === correctAnswer) {
+        feedback.textContent = "Correct Answer!";
+        feedback.className = "correct";
+        score += 1;
+      } else {
+        feedback.textContent = `Wrong Answer! Correct is "${correctAnswer}"`;
+        feedback.className = "wrong";
+      }
+    });
+
+    document.getElementById("score").textContent = `Your total score: ${score} / ${questions.length}`;
+  }
+  window.onload = function () {
+    document.getElementById("quizForm").reset();
+
+    
+    const feedbacks = document.querySelectorAll(".feedback");
+    feedbacks.forEach((f) => {
+      f.textContent = "";
+      f.className = "feedback";
+    });
+
+    document.getElementById("score").textContent = "";
+  };
+</script>
+</body>
+</html>

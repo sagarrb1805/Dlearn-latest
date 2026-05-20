@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Resource</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+    <header>    
+        <div class="container">
+            <h1>Add Resource</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('student_signup') }}">Student Signup</a></li>
+                    <li><a href="{{ url_for('studentdetails') }}">Student Details</a></li>
+                    <li><a href="{{ url_for('student_signup') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div class="main-content">
+            <form id="uploadForm" action="{{ url_for('dashboard') }}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="grade">Grade:</label>
+                    <select id="grade" name="grade" required>
+                        <option value="10">Grade 10</option>
+                        <option value="11">Grade 11</option>
+                        <option value="12">Grade 12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="stream">Stream:</label>
+                    <select id="stream" name="stream" required>
+                        <option value="Computer Science">Computer</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Commerce(CA)">Commerce (CA)</option>
+                        <option value="Humanities">Humanities</option>
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <select id="subject" name="subject" required>
+                        <option value="Computer">Computer</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Maths">Maths</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="moduleName">Module Name:</label>
+                    <input type="text" id="moduleName" name="moduleName" required>
+                </div>
+                <div class="form-group">
+                    <label for="topic">Topic:</label>
+                    <input type="text" id="topic" name="topic" required>
+                </div>
+                <div class="form-group">
+                    <label for="subtopic">Subtopic:</label>
+                    <input type="text" id="subtopic" name="subtopic" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="video_filename">Thumbnail:</label>
+                    <input type="file" id="video_filename" name="video_filename" >
+                </div>
+                <div class="form-group">
+                    <label for="file_filename">File Upload:</label>
+                    <input type="file" id="file_filename" name="file_filename" >
+                </div>
+
+                <!-- URL Upload Fields -->
+                <div id="urlFields">
+                    <div class="form-group">
+                        <label for="urlUpload1">URL Upload:</label>
+                        <input type="url" id="urlUpload1" name="urlUpload1" required>
+                        <br><br>
+                        <label for="accessibility1">Accessibility Options:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="accessibility1[]" value="ISL only" class="styled-checkbox"> ISL only</label>
+                            <label><input type="checkbox" name="accessibility1[]" value="ISL and Voice" class="styled-checkbox"> ISL and Voice</label>
+                            <label><input type="checkbox" name="accessibility1[]" value="Voice Only" class="styled-checkbox"> Voice Only</label>
+                            <label><input type="checkbox" name="accessibility1[]" value="Transcripts" class="styled-checkbox"> Transcripts</label>
+                            <label><input type="checkbox" name="accessibility1[]" value="Captions" class="styled-checkbox"> Captions</label>
+                            <label><input type="checkbox" name="accessibility1[]" value="Subtitles" class="styled-checkbox"> Subtitles</label>
+                            <!-- <label><input type="checkbox" name="accessibility1[]" value="Visual aids or diagrams" class="styled-checkbox"> Visual aids or diagrams</label> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="urltype">Type:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="urltype[]" value="video" class="styled-checkbox"> video</label>
+                        <label><input type="checkbox" name="urltype[]" value="Audio" class="styled-checkbox">Audio</label>
+                        <label><input type="checkbox" name="urltype[]" value="Text" class="styled-checkbox">Text</label>
+                        <label><input type="checkbox" name="urltype[]" value="Kinesthetic" class="styled-checkbox"> Kinesthetic</label>
+                        <label><input type="checkbox" name="urltype[]" value="webpage url" class="styled-checkbox"> webpage url</label>
+                        <label><input type="checkbox" name="urltype[]" value="presentation" class="styled-checkbox"> presentation</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="format">Format:</label>
+                    <select id="format" name="format" required>
+                        <option value="Animated explainers">Animated explainers </option>
+                        <option value="demo">demo</option>
+                        <option value="Lecture recording">Lecture recording</option>
+                        <option value="Tutorial">Tutorial</option>
+                        <option value="Whiteboard animations">Whiteboard animations</option>
+                        <option value="Screencast">Screencast</option>
+                        <option value="Microlearning video">Microlearning video</option>
+                        <option value="url">url</option>
+                        <option value="pdf">pdf</option>
+                        <option value="doc">doc</option>
+                        <option value="ebook">ebook</option>
+                        <option value="slideshow">slideshow</option>
+                        <option value="webinar recording">webinar recording</option>
+                        <option value="flashcard">flashcard</option>
+                        <option value="Exercise">Exercise</option>
+                        <option value="Quiz">Quiz</option>
+
+                    </select>
+                </div>
+                
+                <div class="form-group-container">
+                    <div class="form-group">
+                        <label for="interactive_level">Interactive Level:</label>
+                        <select id="interactive_level" name="interactive_level" required>
+                            <option value="low">low</option>
+                            <option value="medium">medium</option>
+                            <option value="high">high</option>
+                        </select>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="difficulty_level">Difficulty Level:</label>
+                        <select id="difficulty_level" name="difficulty_level" required>
+                            <option value="low">low</option>
+                            <option value="medium">medium</option>
+                            <option value="high">high</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group-container">
+                    <div class="form-group">
+                        <label for="deafness_suitability">Deafness Suitability:</label>
+                        <select id="deafness_suitability" name="deafness_suitability" required>
+                            <option value="Mild">Mild</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Severe">Severe</option>
+                            <option value="Profound">Profound</option>
+                        </select>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="communication_mode">Communication Mode:</label>
+                        <select id="communication_mode" name="communication_mode" required>
+                            <option value="Sign Language">Sign Language</option>
+                            <option value="Sign supported speech">Sign Supported Speech</option>
+                            <option value="Speech">Speech</option>
+                        </select>
+                    </div>
+                </div><br>
+
+                <div class="form-group-container">
+                    <label class="full-width-label">Learning Style:</label>
+                    <div class="form-group">
+                        <label for="auditory">Auditory:</label>
+                        <input type="number" step="0.1" id="auditory" name="auditory">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="kinesthetic">Kinesthetic:</label>
+                        <input type="number" step="0.1" id="kinesthetic" name="kinesthetic">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="read_write">Read/Write:</label>
+                        <input type="number" step="0.1" id="read_write" name="read_write">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="visual">Visual:</label>
+                        <input type="number" step="0.1" id="visual" name="visual">
+                    </div>
+                </div>
+                
+                
+                
+
+                <!-- Plus Icon to add more fields -->
+                
+                <div class="form-group">
+                    <button type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+ 
+
+
+

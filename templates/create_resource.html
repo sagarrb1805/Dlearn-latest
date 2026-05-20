@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Resource</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      color: #007bff;
+      margin: 0;
+      font-size: 20px;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 14px;
+    }
+    .banner {
+      position: relative;
+      background: #bde6f3;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-image: url('{{ url_for("static", filename="uploads/cover.jpg") }}');
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+    .banner h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .upload-btn {
+      background-color: white;
+      color: #007bff;
+      border: 1px solid #007bff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .home-btn {
+      background-color: white;
+      border: 1px solid #007bff;
+      color: #007bff;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .container {
+      max-width: 1100px;
+      background-color: white;
+      margin: 30px auto;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .form-group, .form-group-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group-container {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    label {
+      font-weight: 500;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    input[type="text"], input[type="url"], input[type="file"], input[type="number"], textarea, select {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    textarea {
+      resize: vertical;
+      height: 60px;
+    }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .checkbox-group label {
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+    }
+    .checkbox-group input {
+      margin-right: 8px;
+    }
+    .full-width-label {
+      grid-column: 1 / -1;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    button[type="submit"] {
+      grid-column: 1 / -1;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DLearn</h1>
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="{{ url_for('dashboard') }}">
+            <button class="home-btn">Home</button>
+        </a>
+        <span>Welcome, Admin</span>
+    </div>
+
+  </header>
+
+  <div class="banner">
+    <h2>Introduce the course title</h2>
+    <button class="upload-btn">Upload cover ↗</button>
+  </div>
+
+  <div class="container">
+    <form id="uploadForm" action="{{ url_for('dashboard') }}" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="grade">Grade:</label>
+        <select id="grade" name="grade" required>
+          <option value="10">Grade 10</option>
+          <option value="11">Grade 11</option>
+          <option value="12">Grade 12</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="stream">Stream:</label>
+        <select id="stream" name="stream" required>
+          <option value="Computer Science">Computer</option>
+          <option value="Biology">Biology</option>
+          <option value="Commerce(CA)">Commerce (CA)</option>
+          <option value="Humanities">Humanities</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject" required>
+          <option value="Computer">Computer</option>
+          <option value="Physics">Physics</option>
+          <option value="Maths">Maths</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="moduleName">Module Name:</label>
+        <input type="text" id="moduleName" name="moduleName" required>
+      </div>
+      <div class="form-group">
+        <label for="topic">Topic:</label>
+        <input type="text" id="topic" name="topic" required>
+      </div>
+      <div class="form-group">
+        <label for="subtopic">Subtopic:</label>
+        <input type="text" id="subtopic" name="subtopic" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="video_filename">Thumbnail:</label>
+        <input type="file" id="video_filename" name="video_filename">
+      </div>
+      <div class="form-group">
+        <label for="file_filename">File Upload:</label>
+        <input type="file" id="file_filename" name="file_filename">
+      </div>
+      <div class="form-group">
+        <label for="urlUpload1">URL Upload:</label>
+        <input type="url" id="urlUpload1" name="urlUpload1" required>
+      </div>
+
+      <div class="form-group full-width-label">Accessibility Options:</div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="accessibility1[]" value="ISL only"> ISL only</label>
+        <label><input type="checkbox" name="accessibility1[]" value="ISL and Voice"> ISL and Voice</label>
+        <label><input type="checkbox" name="accessibility1[]" value="Voice Only"> Voice Only</label>
+        <label><input type="checkbox" name="accessibility1[]" value="Transcripts"> Transcripts</label>
+        <label><input type="checkbox" name="accessibility1[]" value="Captions"> Captions</label>
+        <label><input type="checkbox" name="accessibility1[]" value="Subtitles"> Subtitles</label>
+      </div>
+
+      <div class="form-group full-width-label">Type:</div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="urltype[]" value="video"> Video</label>
+        <label><input type="checkbox" name="urltype[]" value="Audio"> Audio</label>
+        <label><input type="checkbox" name="urltype[]" value="Text"> Text</label>
+        <label><input type="checkbox" name="urltype[]" value="Kinesthetic"> Kinesthetic</label>
+        <label><input type="checkbox" name="urltype[]" value="webpage url"> Webpage URL</label>
+        <label><input type="checkbox" name="urltype[]" value="presentation"> Presentation</label>
+      </div>
+      <br><br>
+      <!-- MOVED FORMAT FIELD -->
+      <div class="form-group">
+        <label for="format">Format:</label>
+        <select id="format" name="format" required>
+          <option value="Animated explainers">Animated explainers</option>
+          <option value="demo">Demo</option>
+          <option value="Lecture recording">Lecture recording</option>
+          <option value="Tutorial">Tutorial</option>
+          <option value="Whiteboard animations">Whiteboard animations</option>
+          <option value="Screencast">Screencast</option>
+          <option value="Microlearning video">Microlearning video</option>
+          <option value="url">URL</option>
+          <option value="pdf">PDF</option>
+          <option value="doc">DOC</option>
+          <option value="ebook">Ebook</option>
+          <option value="slideshow">Slideshow</option>
+          <option value="webinar recording">Webinar recording</option>
+          <option value="flashcard">Flashcard</option>
+          <option value="Exercise">Exercise</option>
+          <option value="Quiz">Quiz</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="interactive_level">Interactive Level:</label>
+        <select id="interactive_level" name="interactive_level" required>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="difficulty_level">Difficulty Level:</label>
+        <select id="difficulty_level" name="difficulty_level" required>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="deafness_suitability">Deafness Suitability:</label>
+        <select id="deafness_suitability" name="deafness_suitability" required>
+          <option value="Mild">Mild</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Severe">Severe</option>
+          <option value="Profound">Profound</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="communication_mode">Communication Mode:</label>
+        <select id="communication_mode" name="communication_mode" required>
+          <option value="Sign Language">Sign Language</option>
+          <option value="Sign supported speech">Sign Supported Speech</option>
+          <option value="Speech">Speech</option>
+        </select>
+      </div><br>
+
+      <!-- COMBINED STYLE INPUTS -->
+       <h4 style="margin-top: -5px;margin-bottom: -8px;">Learning Style:</h4>
+      <div class="form-group-container">
+        <div class="form-group">
+          <label for="auditory">Auditory</label>
+          <input type="number" step="0.1" id="auditory" name="auditory">
+        </div>
+        <div class="form-group">
+          <label for="kinesthetic">Kinesthetic</label>
+          <input type="number" step="0.1" id="kinesthetic" name="kinesthetic">
+        </div>
+        <div class="form-group">
+          <label for="read_write">Read/Write</label>
+          <input type="number" step="0.1" id="read_write" name="read_write">
+        </div>
+        <div class="form-group">
+          <label for="visual">Visual</label>
+          <input type="number" step="0.1" id="visual" name="visual">
+        </div>
+      </div>
+
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+</body>
+</html>

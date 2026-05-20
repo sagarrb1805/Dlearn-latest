@@ -1,0 +1,220 @@
+/* body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #0779e4 3px solid;
+}
+header a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+header ul {
+    padding: 0;
+    list-style: none;
+}
+header li {
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+.main-content {
+    padding: 20px;
+    background: #fff;
+    margin-top: 20px;
+}
+.section {
+    margin-bottom: 20px;
+}
+.section h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.form-group button {
+    background: #0779e4;
+    color: #fff;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.form-group button:hover {
+    background: #005bb5;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+} */
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #0779e4 3px solid;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header ul {
+    padding: 0;
+    list-style: none;
+}
+
+header li {
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+.main-content {
+    padding: 20px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-group button {
+    background: #0779e4;
+    color: #fff;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background: #005bb5;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+/* .checkboxx {
+margin: 3px 3px 3px 3px;
+} */
+
+.styled-checkbox {
+    margin: 0px -280px 10px -280px;
+}
+
+.checkbox-group label {
+    width: 50%;
+    padding: 3px 3;
+}
+
+.plus-icon {
+    display: inline-block;
+    font-size: 24px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.form-groupp button {
+    background: #fff;
+    color: #0779e4;
+    padding: 10px 20px;
+    border: 5;
+    border-radius: 5px;
+    border-color:#0779e4;
+    cursor: pointer;
+}
+
+.form-group-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 30px; /* Increased space between fields */
+}
+
+.form-group {
+    flex: 1;
+    min-width: 220px; /* Slightly wider fields */
+    margin-bottom: 10px; /* Space below each field */
+}
+
+.full-width-label {
+    width: 100%;
+    font-weight:300;
+    margin-bottom: 15px; /* Adds spacing below the heading */
+    display: block;
+}

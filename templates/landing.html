@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLearn - Admin Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2575fc;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            color: #2575fc;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 670px;
+            background: url('{{ url_for("static", filename="uploads/homeimage.jpg") }}') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #ffcc00;
+            padding: 12px 24px;
+            border-radius: 5px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff9900;
+        }
+
+        /* Video Section */
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 40px 10%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .video-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .video-item:hover {
+            transform: scale(1.05);
+        }
+
+        .video-item h2 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .video-item p {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .video-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="navbar">
+        <div class="logo">DLearn</div>
+        <div>
+            <a href="#">Home</a>
+            <a href="/my_courses">Courses</a>
+            <a href="/student_signin" class="btn-primary">Sign in</a>
+        </div>
+    </div> -->
+    <div class="navbar">
+        <div class="logo">DLearn</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search courses..." onkeyup="searchCourses()">
+            <button>🔍</button>
+        </div>
+        <div>
+            <a href="#">Home</a>
+            <a href="/my_courses">Courses</a>
+            <a href="/student_signin" class="btn-primary">Sign in</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Education is the Key to Success</h1>
+            <p>Making an Impact in Classrooms and Communities</p>
+            <a href="/my_courses" class="btn-primary">Explore Courses</a>
+        </div>
+    </div>
+    <br><h1>Course list</h1>
+    {% if videos %}
+        <div class="video-list">
+            {% for video in videos[:9] %}
+                <div class="video-item" onclick="location.href='/course_details/{{ video[10] }}'">
+                    <h2 class="topic">{{ video[4] }}</h2>
+                    <p><strong>Module Name:</strong> {{ video[0] }}</p>
+                    <p><strong>Subtopic:</strong> {{ video[5] }}</p>
+                    <p class="hidden"><strong>Description:</strong> {{ video[6] }}</p>
+                    {% if video[7] %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ video[7]) }}" alt="No image available">
+                    {% endif %}
+                    {% if video[8] %}
+                        <p><a href="{{ url_for('static', filename='uploads/' ~ video[8]) }}" download>Download File</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align:center; padding: 20px; font-size: 1.2rem;">No videos uploaded yet.</p>
+    {% endif %}
+</body>
+</html>

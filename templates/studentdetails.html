@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/studentdetails.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- <header>
+        <div class="container">
+            <h1>View/Edit Student Details</h1>
+        </div>
+    </header> -->
+    <header>
+    <div class="container header-flex">
+        <h1>View/Edit Student Details</h1>
+        <a href="{{ url_for('dashboard') }}" class="home-button">
+            <i class="fa fa-home"></i> Home
+        </a>
+    </div>
+</header>
+    <div class="container">
+        <!-- <div>
+           <h5> Total no.of resources: {{ videos_count }} </h5> 
+           <h5> Total interaction time: {{(total_interaction_time[0]/60) | round(2) }} Min</h5> 
+           <h5> Total no.of Students:00 </h5> 
+
+           
+        </div> -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <div class="summary-value">{{ "%02d" % videos_count }}</div>
+                <div class="summary-label">Total no: of resources</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-value">{{ "%02d" % ((total_interaction_time[0]/60) | round(0)) }}</div>
+                <div class="summary-label">Total Interaction Time</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-value">{{ "%02d" % full_user_data|length }}</div>
+                <div class="summary-label">Total students</div>
+            </div>
+        </div>
+        <div id="viewStudents" class="main-content section">
+            <h2>View/Edit Student Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                        <!-- <th>Gender</th>
+                        <th>Grade</th>
+                        <th>Actions</th> -->
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    {% for user in full_user_data %}
+                    <tr>
+                        <td>{{ user[0] }}</td>
+                        <td>{{ user[1] }}</td>
+                        <td>{{ user[2] }}</td>
+                        <!-- <td>{{ user[3] }}</td> -->
+                         <td>
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </td>
+                    </tr>
+                    {% endfor %}
+                    <!-- Student rows will be populated here from the server -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- <script>
+        function fetchStudentDetails() {
+            fetch('/api/students')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('studentTableBody');
+                    tableBody.innerHTML = '';  // Clear existing table data
+                    data.forEach(student => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${student.id}</td>
+                            <td>${student.username}</td>
+                            <td>${student.email}</td>
+                            <td>${student.dob}</td>
+                            <td>${student.gender}</td>
+                            <td>${student.grade}</td>
+                            <td>
+                                <button onclick="editStudent(${student.id})">Edit</button>
+                                <button onclick="deleteStudent(${student.id})">Delete</button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching student details:', error));
+        }
+
+        function editStudent(studentId) {
+            // Implement edit functionality
+            alert('Edit student ' + studentId);
+        }
+
+        function deleteStudent(studentId) {
+            // Implement delete functionality
+            alert('Delete student ' + studentId);
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchStudentDetails);
+    </script> -->
+</body>
+</html>

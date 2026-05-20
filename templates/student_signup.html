@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title >Student Signup</title><br>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container" >
+        <div class="left" id="leftImage">
+            <img src="https://img.freepik.com/free-vector/privacy-policy-concept-illustration_114360-7853.jpg?t=st=1719833106~exp=1719836706~hmac=485d6e5900133320438b3f1263c3bf7d999733bcaab5a79a685240b742d15917&w=740" alt="Signup Image">
+        </div>
+        <div class="right">
+            <h2 id="signupHeading" style="margin-top: 130px;">Student Signup</h2>
+            <form id="signupForm" action="/student_signup" method="post">
+                <div id="step1">
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username" required><br>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required><br>
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" required><br>
+                    <button type="button" onclick="showStep2()">Next</button>
+                </div>
+                <div id="step2" style="display:none;">
+                    <label for="dob">Date of Birth:</label><br>
+                    <input type="date" id="dob" name="dob" required><br>
+                    <label for="gender">Gender:</label><br>
+                    <select id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select><br>
+                    <label for="grade">Current Level of Grade:</label><br>
+                    <select id="grade" name="grade" required>
+                        <option value="12">Grade 12</option>
+                        <option value="11">Grade 11</option>
+                        <option value="10">Grade 10</option>
+                    </select><br>
+                    <label for="stream">What subject you opt for in your plus two studies?</label><br>
+                    <select id="stream" name="stream" required>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Biology">Biology Science</option>
+                        <option value="Humanities">Humanities</option>
+                        <option value="Commerce(CA)">Commerce</option>
+                        <option value="Other">Other</option>
+                    </select><br>
+                    <label for="reason">Why did you choose this subject stream?</label><br>
+                    <input type="checkbox" id="I like the subjects" name="reason" value="I like the subjects class="styled-checkbox"> Because I like the subjects<br>
+                    <input type="checkbox" id="Job opportunities" name="reason" value="Job opportunities" class="styled-checkbox"> Because of job opportunities<br>
+                    <input type="checkbox" id="Family interest" name="reason" value="Family interest" class="styled-checkbox"> Because of my family interest<br><br>
+
+                    <label for="medium">What is your medium of instruction?</label><br>
+                    <select id="medium" name="medium" required>
+                        <option value="Malayalam">Malayalam</option>
+                        <option value="English">English</option>
+                        <option value="Other">Other</option>
+                    </select><br>
+                    <label for="prof">Proficiency in Computer literacy?(Rate from very low to high)</label><br>
+                    <!-- <label for="prof">(Rate from very low to high)</label><br> -->
+                    <select id="prof" name="prof" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select><br>
+                    <button type="button" onclick="showStep3()">Next</button>
+                </div>
+                <div id="step3" style="display:none;">
+                    <h3>Deafness related parameters</h3>
+                    <label for="per">Percentage of disability (0-100):</label><br>
+                    <input type="number" id="per" name="per" required><br>
+                    <label for="degree">Degree of Hearing Loss:</label><br>
+                    <select id="degree" name="degree" required>
+                        <option value="Mild">Mild</option>
+                        <option value="Moderate">Moderate</option>
+                        <!-- <option value="Moderately Severe">Moderately Severe</option> -->
+                        <option value="Severe">Severe</option>
+                        <option value="Profound">Profound</option>
+                    </select><br>
+                    <label for="type">Type of Hearing Loss:</label><br>
+                    <select id="type" name="type" required>
+                        <option value="Conductive">Conductive</option>
+                        <option value="Sensorineural">Sensorineural</option>
+                        <option value="Mixed">Mixed</option>
+                    </select><br>
+                    <label for="stbelow">Have you received the speech therapy below age 5?</label><br>
+                    <select id="stbelow" name="stbelow" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select><br>
+                    <label for="stabove">Have you received the speech therapy above age 5?</label><br>
+                    <select id="stabove" name="stabove" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select><br>
+                    <label for="imprv">Did you find speech therapy helpful in improving your communication skills?(Rate from very low to high)</label><br>
+                    <!-- <label for="imprv">Rate from very low to high</label><br> -->
+                    <select id="imprv" name="imprv" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select><br>
+                    <button type="button" onclick="showStep4()">Next</button>
+                </div>
+                <div id="step4" style="display:none;">
+                    <label for="haid">Hearing Aid User:</label><br>
+                    <select id="haid" name="haid" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select><br>
+                    <label for="implant">Undergone Cochlear Implant:</label><br>
+                    <select id="implant" name="implant" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select><br>
+                    <label for="cmode">Preferred Communication Mode:</label><br>
+                    <select id="cmode" name="cmode" required>
+                        <option value="Sign Language">Sign Language</option>
+                        <option value="Sign supported speech">Sign supported speech</option>
+                        <option value="Speech">Speech</option>
+                    </select><br>
+                    <label for="lipread">Do you rely on lip reading?</label><br>
+                    <select id="lipread" name="lipread" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select><br>
+                    <label for="profilp">Proficiency in lip reading(Rate from very low to high)</label><br>
+                    <select id="profilp" name="profilp" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select><br>
+                    <label for="history">Family History:</label><br>
+                    <select id="history" name="history" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select><br>
+                    <label for="relation">If Yes, Relation:</label><br>
+                    <select id="relation" name="relation" required>
+                        <option value="Father/Mother/Sister/Brother">Father/Mother/Sister/Brother</option>
+                        <option value="Relative">Relative</option>
+                        <option value="Both">Both</option>
+                    </select><br>
+                    <button type="button" onclick="showStep5()">Next</button>
+                    </div>
+                    <div id="step5" style="display:none;">
+                    <h3>Proficiency in English Language</h3>
+                    <label for="english_proficiency">Proficiency in Understanding English:</label><br>
+                    <select id="english_proficiency" name="english_proficiency" required>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                        <option value="Fluent">Fluent</option>
+                    </select><br>
+                    <label for="written_english">How comfortable are you with written English? (1-5)</label><br>
+                    <select id="written_english" name="written_english" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select><br>
+                    <label for="challenges">What are the challenges you face when you use online learning materials on YouTube, for example? Check all that apply.</label><br>
+                    <input type="checkbox" id="fast_speech" name="challenges" value="Videos are too fast" class="styled-checkbox"> Videos are too fast (fast speech, lack of clarity in pronunciation, sign language interpretation is fast)<br>
+                    <input type="checkbox" id="lengthy_videos" name="challenges" value="Videos are too lengthy" class="styled-checkbox"> Videos are too lengthy<br>
+                    <input type="checkbox" id="no_subtitles" name="challenges" value="No subtitles" class="styled-checkbox"> No subtitles for the video or audio materials<br>
+                    <input type="checkbox" id="no_transcripts" name="challenges" value="No transcripts" class="styled-checkbox"> No transcripts (text material) are available for audio/video content<br>
+                    <input type="checkbox" id="background_music" name="challenges" value="Difficulty accessing the content" class="styled-checkbox"> Difficulty accessing the content<br><br>
+                    <label for="frequency">How often do you face challenges when accessing the online learning material? Mark only one.</label><br>
+                    <select id="frequency" name="frequency" required>
+                        <option value="Never">Never</option>
+                        <option value="Rarely">Rarely</option>
+                        <option value="Sometimes">Sometimes</option>
+                        <option value="Often">Often</option>
+                        <option value="Always">Always</option>
+                    </select><br>
+                    <h3>Acessibilty features and preferred learning & content style</h3>
+
+                    <label for="accessibility_feature">Which accessibility feature do you find most useful when accessing the online material? Check all that apply.</label><br>
+                    <input type="checkbox" id="isl_only" name="accessibility_feature" value="ISL only" class="styled-checkbox" > ISL only<br> 
+                    <input type="checkbox" id="isl_voice" name="accessibility_feature" value="ISL and Voice" class="styled-checkbox"> ISL and Voice<br>
+                    <input type="checkbox" id="voice_only" name="accessibility_feature" value="Voice Only" class="styled-checkbox"> Voice Only<br>
+                    <input type="checkbox" id="transcripts" name="accessibility_feature" value="Transcripts" class="styled-checkbox"> Transcripts<br>
+                    <input type="checkbox" id="captions" name="accessibility_feature" value="Captions" class="styled-checkbox"> Captions<br>
+                    <input type="checkbox" id="subtitles" name="accessibility_feature" value="Subtitles" class="styled-checkbox"> Subtitles<br>
+                    <!-- <input type="checkbox" id="visual_aids" name="accessibility" value="visual_aids" class="styled-checkbox"> Visual aids or diagrams<br><br> -->
+                    <label for="importance">Do you think it is important to access the learning material through your preferred communication mode(s)? Mark only one. (1-5)</label><br>
+                    <select id="importance" name="importance" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select><br>
+                    <button type="button" onclick="showStep6()">Next</button>
+                    </div>
+                    <div id="step6" style="display:none;">
+                        
+                    <label for="learning_style">Preferred Learning Style. Check all that apply.</label><br>
+                    <input type="checkbox" id="visual" name="learning_style" value="Visual" class="styled-checkbox"> Visual (learning through images, diagrams, and visual aids)<br>
+                    <input type="checkbox" id="auditory" name="learning_style" value="aural" class="styled-checkbox"> Auditory (learning through listening and verbal explanations)<br>
+                    <input type="checkbox" id="kinesthetic" name="learning_style" value="Kinesthetic" class="styled-checkbox"> Kinesthetic (learning through hands-on activities and physical involvement)<br>
+                    <input type="checkbox" id="read_write" name="learning_style" value="Read/Write" class="styled-checkbox"> Read/Write (learning through reading and writing activities)<br><br>
+                    <!-- <label for="preferred_content">Which types of educational content do you prefer? Check all that apply.</label><br>
+                    <input type="checkbox" id="isl_videos" name="preferred_content" value="isl_videos" class="styled-checkbox"> ISL Videos (Videos that include sign language interpretation)<br>
+                    <input type="checkbox" id="isl_voice_videos" name="preferred_content" value="isl_voice_videos" class="styled-checkbox"> ISL and voice (Videos that include both sign language interpretation (ISL) and spoken voice)<br>
+                    <input type="checkbox" id="isl_subtitles" name="preferred_content" value="isl_subtitles" class="styled-checkbox"> ISL with subtitles (Videos with sign language interpretation (ISL) accompanied by subtitles)<br>
+                    <input type="checkbox" id="audio_subtitles" name="preferred_content" value="audio_subtitles" class="styled-checkbox"> Audio with subtitles (Audio content such as podcasts or lectures accompanied by subtitles)<br>
+                    <input type="checkbox" id="video_transcripts" name="preferred_content" value="video_transcripts" class="styled-checkbox"> Video with Transcripts<br>
+                    <input type="checkbox" id="audio_transcripts" name="preferred_content" value="audio_transcripts" class="styled-checkbox"> Audio with Transcripts<br>
+                    <input type="checkbox" id="text_based" name="preferred_content" value="text_based" class="styled-checkbox"> Text-based materials<br>
+                    <input type="checkbox" id="slideshows" name="preferred_content" value="slideshows" class="styled-checkbox"> Slideshows/images<br>
+                    <input type="checkbox" id="forums" name="preferred_content" value="forums" class="styled-checkbox"> Forums<br>
+                    <input type="checkbox" id="exercises_quizzes" name="preferred_content" value="exercises_quizzes" class="styled-checkbox"> Exercises/Quizzes<br><br> -->
+                    <label for="communication_mode">Preferred Communication Modes. Check all that apply.</label><br>
+                    <input type="checkbox" id="Sign" name="communication_mode" value="Sign" class="styled-checkbox"> Sign language<br>
+                    <input type="checkbox" id="Sign Supported Speech" name="communication_mode" value="Sign Supported Speech" class="styled-checkbox">Sign supported speech<br>
+                    <input type="checkbox" id="Speech" name="communication_mode" value="Speech" class="styled-checkbox"> Speech<br>
+                    <!-- <input type="checkbox" id="read_write" name="communication_mode" value="Read/Write" class="styled-checkbox"> Read/Write (learning through reading and writing activities)<br><br> -->
+                    <h3>Academic history</h3>
+                    <label for="schooling">Prior type of Schooling. Mark only one.</label><br>
+                    <select id="schooling" name="schooling" required>
+                        <option value="Special School">Special School only</option>
+                        <option value="Regular school">Regular School only</option>
+                        <!-- <option value="both_schools">Both special and regular school</option> -->
+                    </select><br><br>
+                    <label for="mixedexp">Mixed school experience</label><br>
+                    <select id="mixedexp" name="mixedexp" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select><br><br>
+                    <label for="marks_10">Percentage of Marks Scored in class 10 (0-100):</label><br>
+                    <input type="number" id="marks_10" name="marks_10" required><br>
+                    <label for="marks_11">Percentage of Marks Scored in class 11 (0-100):</label><br>
+                    <input type="number" id="marks_11" name="marks_11" required><br>
+                    <button type="submit">Sign Up</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

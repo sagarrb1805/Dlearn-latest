@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: #2575fc;
+            margin-bottom: -65px;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between; /* Ensures buttons are at opposite ends */
+            align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+
+        .btn-primary {
+            background-color: #ffcc00;
+            padding: 12px 24px;
+            border-radius: 5px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        btn-primary-disabled{
+            background-color: #ffcc00;
+            padding: 12px 24px;
+            border-radius: 5px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            /* cursor: pointer; */
+        }
+
+
+        .btn-primary:hover {
+            background-color: #ff9900;
+        }
+
+
+        .video-container {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        iframe, #youtube-player {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+        }
+
+        .link-container {
+            margin-top: 20px;
+        }
+
+        .course-link {
+            font-size: 1.2rem;
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .course-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">DLearn</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/my_courses">My Materials</a>
+            <a href="/student_signin" style="border: 2px solid #2575fc; padding: 8px 15px; border-radius: 5px; text-decoration: none; color: #2575fc; transition: 0.3s;">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        {% if course_details %}
+            <div class="button-container">
+                <a onclick="goBack()" class="btn-primary">Back</a>
+                <h3>{{ course_details[1] }}</h3> 
+                <button id="markCompletedButton"
+                class="btn-primary{% if interaction_time <= 0 %}-disabled{% endif %}"
+            {% if interaction_time <= 0 %}disabled{% endif %}
+                            onclick="course_confirm_button_click()">
+                     Mark Course Completed
+                                                    </button>
+                <!-- {% if interaction_time > 0 %}
+                    <button class="btn-primary" onclick="course_confirm_button_click()">Mark Course Completed</button>
+                {% else %}
+                <button id="complete-btn" class="btn-primary-disabled" disabled>Mark Course Completed</button>
+                {% endif %} -->
+            </div>
+            
+    
+            {% if video_id %}
+                <div class="video-container" id="youtube-player"></div>
+            {% elif excersise%}
+                <a href="/activity/{{course_details[0]}}">got to excercise</a>
+            {% else %}
+                <div class="link-container">  
+                    <a onclick="return sendInteractionData(10000, 1)" href="{{course_details[8]}}" target="_blank" class="course-link">Click Here...</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <p>Course not found</p>
+        {% endif %}
+    </div>
+    
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        var player;
+        var startTime;
+        var totalTimeSpent = 0;
+         const markCompletedButton = document.getElementById('markCompletedButton');
+         totalTimeSpent = Math.max(0, interaction_time * 1000); 
+
+         function updateCompletionButtonState() {
+        // Define a threshold for when the button should become active (e.g., 1 second = 1000ms)
+        // const completionThresholdMs = 1000; 
+
+        if (totalTimeSpent > 0) {
+            // Enable the button
+            markCompletedButton.disabled = false;
+            // Update class for styling (remove disabled class, add active class)
+            markCompletedButton.classList.remove('btn-primary-disabled');
+            markCompletedButton.classList.add('btn-primary'); // Ensure it has the base active class
+        } else {
+            // Disable the button
+            markCompletedButton.disabled = true;
+            // Update class for styling
+            markCompletedButton.classList.remove('btn-primary');
+            markCompletedButton.classList.add('btn-primary-disabled'); // Ensure it has the disabled class
+        }
+    }
+    updateCompletionButtonState()
+        function goBack() {
+    window.history.back();
+    
+  }
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '500',
+                width: '100%',
+                videoId: '{{video_id}}', 
+                playerVars: {'rel': 0},
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+    
+        function onPlayerReady(event) {
+            console.log('Player is ready.');
+        }
+    
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                sendInteractionData(0, 1);
+                startTime = Date.now();
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                if (startTime) {
+                    totalTimeSpent += Date.now() - startTime;
+                    startTime = null;
+                }
+                sendInteractionData(totalTimeSpent, 1);
+            }
+        }
+    
+        function onPlayerError(event) {
+            console.log("player error", event.data);
+        }
+    
+        function sendInteractionData(timeSpent, clicks) {
+            const videoId = '{{course_details[0]}}';
+            fetch('/record_interaction', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ video_id: videoId, time_spent: timeSpent, clicks: clicks })
+            });
+            updateCompletionButtonState()
+        }
+    
+        function course_confirm_button_click() {
+            let rating = window.prompt("Enter your rating (0-5)", 4);
+            if (rating) {
+                fetch('/record_completion', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        video_id: '{{course_details[0]}}',
+                        status: "completed",
+                        rating: rating
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = '/my_courses';
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

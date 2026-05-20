@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                        url('/static/uploads/homeimage.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+        .section-heading {
+            text-align: center;
+            font-size: 1.6rem;
+            margin: 40px 0 10px;
+            color: #ff9900;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2575fc;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            color: #2575fc;
+        }
+
+
+
+        .btn-primary {
+            background-color: #ffcc00;
+            padding: 12px 24px;
+            border-radius: 5px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff9900;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">DLearn</div>
+        <div>
+            <a href="/home">Home</a>
+            <a href="/full_course_list">All Resources</a>
+            <a href="/student_signin"style="border: 2px solid #2575fc; padding: 8px 15px; border-radius: 5px; text-decoration: none; color: #2575fc; transition: 0.3s;">Logout</a>
+        </div>
+    </div>
+    <div>
+        <div style="text-align: center;"><h2 class="section-heading">Enrolled Learning Materials</h2></div>
+        
+        {% if videos %}
+        <div class="video-list">
+            {% for video in videos %}
+                <div class="video-item" onclick="location.href='/learn/{{ video[1] }}'">
+                    <h4 class="topic">{{ video[7] }}</h4> <!-- topic -->
+                    <!-- <p class="topic"><strong>Topic:</strong> {{ video[0] }}</p> -->
+                    <p class="hidden"><strong>Grade:</strong> {{ video[1] }}</p> <!-- grade -->
+                    <p class="hidden"><strong>Stream:</strong> {{ video[2] }}</p> <!-- stream -->
+                    <p class="hidden"><strong>Subject:</strong> {{ video[3] }}</p> <!-- subject -->
+                    <p><strong>Module Name:</strong> {{ video[11] }}</p> <!-- module_name -->
+                    <p><strong>Subtopic:</strong> {{ video[12] }}</p> <!-- subtopic -->
+                    <p class="hidden"><strong>Description:</strong> {{ video[13] }}</p> <!-- description -->
+                    <p><a href="/learn/{{ video[1] }}" >Continue course</a></p>
+                    <!-- <p><strong>URL1:</strong> <a href="{{ video[9] }}" target="_blank">{{ video[9] }}</a></p> url -->
+                    <!-- <p><strong>URL2:</strong> <a href="{{ video[10] }}" target="_blank">{{ video[10] }}</a></p> url -->
+                    <!-- <iframe width="560" height="315" src="{{video[9]}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+                    
+                    <img src="{{ url_for('static', filename='uploads/' ~ video[14]) }}" alt="No image available" width="350" height="240">
+                    <!-- <video width="320" height="240" controls>
+                        <source src="{{ url_for('static', filename='uploads/' ~ video[7]) }}" type="video/mp4"> 
+                        Your browser does not support the video tag.
+                    </video> -->
+                    
+                    {% if video[15]  %}
+                        <p><a href="{{ url_for('static', filename='uploads/' ~ video[15]) }}" download>Download File</a></p> <!-- file_filename -->
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No enrolled courses.</p>
+    {% endif %}
+    </div>
+    
+</body>
+</html>

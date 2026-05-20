@@ -1,0 +1,149 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+</head>
+<body>
+    {% if resource %}
+        <p>course details</p>
+        <p> course: {{resource[1]}}</p>
+        <iframe style="height: 100vh; width: 100vw;" src="{{resource[8]}}" title="{{resource[1]}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+        <!-- {% if interaction_data %} 
+            <p> already enrolled for this course <a href="/my_courses"> Go to mycourses </a></p>
+        {% else%}
+            <button onclick="doEnrollment()">Enroll Now</button>
+        {% endif %}
+                    
+    {% else %}
+        <p>course not found</p>
+    {% endif %}  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #2575fc;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .enroll-btn {
+            background-color: #ffcc00;
+            padding: 12px 24px;
+            border-radius: 5px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .enroll-btn:hover {
+            background-color: #ff9900;
+        }
+
+        .my-courses-link {
+            font-size: 1.1rem;
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .my-courses-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">DLearn</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/my_courses">My Materials</a>
+            <!-- <a href="/student_signin" class="btn-primary">Sign in</a> -->
+        </div>
+    </div>
+
+    <div class="container">
+        {% if resource %}
+            <h1>{{ resource[1] }}</h1>
+            <!-- <p><strong>Course Details</strong></p> -->
+            
+            {% if interaction_data %}
+                <p>Already enrolled for this resource.</p>
+                <a href="/my_courses" class="my-courses-link">Go to My Resource</a>
+            {% else %}
+                <button class="enroll-btn" onclick="doEnrollment()">View</button>
+            {% endif %}
+            
+        {% else %}
+            <p>Resource not found.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function doEnrollment() {
+            const courseId = "{{ resource[0] }}";
+            const userId = "{{ session['user_id'] }}"; // Get user ID from session.
+
+            const message = {
+                course_id: courseId,
+                user_id: userId
+            };
+            fetch('/create_enrollment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                console.log('Flask response:', data.result);
+                location.reload()
+                // alert(data.result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred.');
+            });
+        }
+    </script>
+</body>
+</html>

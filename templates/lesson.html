@@ -1,0 +1,121 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>{{ lesson_name }}</h2>
+    <div class="container" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 20px;">
+            {% for topic in topics %}
+                <div class="card" style="width: 300px; margin: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" onclick="window.location.href='/topic/{{ topic.name }}'">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 style="font-size: 1.5rem;">{{ topic.name }}</h5>
+                    </div>
+                </div>
+            {% endfor %}  
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Topics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+            z-index: 0;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('/static/uploads/homeimage.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            width: 300px;
+            margin: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            background-color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body h5 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">DLearn</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/my_courses">My Materials</a>
+            <a href="/student_signin" style="border: 2px solid #2575fc; padding: 8px 15px; border-radius: 5px; text-decoration: none; color: #2575fc; transition: 0.3s;">Logout</a>
+        </div>
+    </div>
+
+    <h1>{{ lesson_name }}</h1>
+
+    <div class="container">
+        {% for topic in topics %}
+            <div class="card" onclick="window.location.href='/topic/{{ topic.name }}'">
+                <img src="{{ url_for('static', filename='uploads/homeCardsCover.jpg') }}" alt="{{ topic.name }}">
+                <div class="card-body">
+                    <h5>{{ topic.name }}</h5>
+                </div>
+            </div>
+        {% endfor %}  
+    </div>
+</body>
+</html>
