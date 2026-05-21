@@ -742,7 +742,7 @@ def logout():
 
 if __name__ == '__main__':
     Common.model = FuzzyClustering("./files/DHHTrainDataPre.csv", n_clusters=6)
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
 
 # if __name__ == '__main__':
 #     init_db()
