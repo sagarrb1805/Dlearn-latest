@@ -1,9 +1,9 @@
-from sentence_transformers import SentenceTransformer
+# from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import sqlitecloud
 from db.db import get_db_connection, close_db_connection
 
-search_model = SentenceTransformer('all-MiniLM-L6-v2')
+# search_model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def get_lesson_list():
     lessons = []
@@ -128,16 +128,17 @@ def semantic_search_videos(query, top_k=10, topic=None):
             texts.append(combined)
             valid_rows.append(row)
 
-    if not texts:
-        return []
+    # if not texts:
+    #     return []
 
-    query_embedding = search_model.encode([query])
-    text_embeddings = search_model.encode(texts)
+    # query_embedding = search_model.encode([query])
+    # text_embeddings = search_model.encode(texts)
 
-    similarities = cosine_similarity(query_embedding, text_embeddings)[0]
-    top_indices = similarities.argsort()[-top_k:][::-1]
+    # similarities = cosine_similarity(query_embedding, text_embeddings)[0]
+    # top_indices = similarities.argsort()[-top_k:][::-1]
 
-    results = [valid_rows[i] for i in top_indices]
+    # results = [valid_rows[i] for i in top_indices] 
+    results = valid_rows
     return results
 
 
