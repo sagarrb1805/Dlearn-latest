@@ -6,6 +6,4 @@ scipy==1.14.1
 scikit-learn==1.6.1
 scikit-fuzzy==0.5.0
 mlxtend==0.23.4
-transformers==4.51.3
 sqlitecloud==0.0.83
-sentence-transformers==3.0.0
