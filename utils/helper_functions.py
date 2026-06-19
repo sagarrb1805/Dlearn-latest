@@ -2,15 +2,18 @@ from sklearn.metrics.pairwise import cosine_similarity
 import sqlitecloud
 from db.db import get_db_connection, close_db_connection
 
-# Lazy-loaded to avoid loading ~400MB model at startup (causes OOM on Render free tier)
-_search_model = None
+from sentence_transformers import SentenceTransformer
+search_model = SentenceTransformer('all-MiniLM-L6-v2')
 
-def get_search_model():
-    global _search_model
-    if _search_model is None:
-        from sentence_transformers import SentenceTransformer
-        _search_model = SentenceTransformer('all-MiniLM-L6-v2')
-    return _search_model
+# Lazy-loaded to avoid loading ~400MB model at startup (causes OOM on Render free tier)
+# _search_model = None
+
+# def get_search_model():
+#     global _search_model
+#     if _search_model is None:
+#         from sentence_transformers import SentenceTransformer
+#         _search_model = SentenceTransformer('all-MiniLM-L6-v2')
+#     return _search_model
 
 def get_lesson_list():
     lessons = []
@@ -138,7 +141,7 @@ def semantic_search_videos(query, top_k=10, topic=None):
     if not texts:
         return []
 
-    search_model = get_search_model()
+    # search_model = get_search_model()
     query_embedding = search_model.encode([query])
     text_embeddings = search_model.encode(texts)
 
