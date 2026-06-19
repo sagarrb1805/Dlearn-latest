@@ -740,6 +740,9 @@ def logout():
 #     return render_template("partials/available_items.html", videos=videos)
 
 
+# Initialize the fuzzy clustering model at startup (runs under both gunicorn and direct execution)
+Common.model = FuzzyClustering("./files/DHHTrainDataPre.csv", n_clusters=6)
+
 if __name__ == '__main__':
     Common.model = FuzzyClustering("./files/DHHTrainDataPre.csv", n_clusters=6)
     app.run(host="0.0.0.0", port=5000)
