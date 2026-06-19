@@ -9,3 +9,4 @@ mlxtend==0.23.4
 transformers==4.51.3
 sqlitecloud==0.0.83
 matplotlib==3.10.3
+sentence-transformers==3.0.0
