@@ -8,7 +8,7 @@ from routes.resource_route import resource_bp
 import sqlitecloud
 
 from utils.common import Common, get_user_membership
-from utils.recommendation import FuzzyClustering, filter_resources, rank_resources
+from utils.recommendation import filter_resources, rank_resources
 from utils.helper_functions import get_topic_list, fetch_video_data, get_total_interaction_time, get_total_user_data, get_lesson_list
 from db.db import get_db_connection, close_db_connection
 
@@ -740,11 +740,7 @@ def logout():
 #     return render_template("partials/available_items.html", videos=videos)
 
 
-# Initialize the fuzzy clustering model at startup (runs under both gunicorn and direct execution)
-Common.model = FuzzyClustering("./files/DHHTrainDataPre.csv", n_clusters=6)
-
 if __name__ == '__main__':
-    Common.model = FuzzyClustering("./files/DHHTrainDataPre.csv", n_clusters=6)
     app.run(host="0.0.0.0", port=5000)
 
 # if __name__ == '__main__':

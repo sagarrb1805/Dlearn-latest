@@ -8,6 +8,11 @@ class Common:
 
 
 def get_user_membership(user_id):
+    # Lazy-initialize the model on first use so gunicorn can start without blocking
+    if Common.model is None:
+        from utils.recommendation import FuzzyClustering
+        Common.model = FuzzyClustering("./files/DHHTrainDataPre.csv", n_clusters=6)
+
     if(user_id):
         user_learning_preference = None
         conn = get_db_connection()
