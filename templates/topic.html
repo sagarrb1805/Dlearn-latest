@@ -172,7 +172,7 @@
     <h2 class="section-heading">Recommended Resources</h2>
     </div>
     <div class="video-list-recommended">
-        {% for video in recommended_videos %}
+        {% for video in recommended_videos[:5] %}
         <div class="video-item" onclick="location.href='/course_details/{{ video[10] }}'">
             <h2 class="topic">{{ video[0] }}</h2>
             <p><strong>Module Name:</strong> {{ video[4] }}</p>

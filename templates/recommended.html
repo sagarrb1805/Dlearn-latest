@@ -151,7 +151,7 @@
     <h2 class="section-heading">Suggested Courses</h2>
 
         <div class="video-list">
-            {% for video in videos[:15] %}
+            {% for video in videos[:5] %}
                 <div class="video-item" onclick="location.href='/course_details/{{ video[10] }}'">
                     <h2 class="topic">{{ video[0] }}</h2>
                     <p><strong>Module Name:</strong> {{ video[4] }}</p>
